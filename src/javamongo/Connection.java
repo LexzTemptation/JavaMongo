@@ -1,3 +1,4 @@
+
 /*
 /  Emmanuel Alejandro Hernandez Cornejo
 /  Universidad Tecnólogica de Léon
@@ -8,17 +9,14 @@
 
 package javamongo;
 
-import com.mongodb.DBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.Mongo;
-
-import java.io.IOException;
-import java.net.UnknownHostException;
+import com.mongodb.BasicDBObject;
+import com.mongodb.MongoException;
+import com.mongodb.MongoClient;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.mongodb.BasicDBObject;
 
 public class Connection
 {
@@ -30,14 +28,15 @@ public class Connection
     {
         try
         {
-            Mongo mongo = new Mongo("localhost", 27017);
-            BaseDatos = mongo.getDB("tienda");
-            coleccion = BaseDatos.getCollection("productos");
+            MongoClient mongo = new MongoClient("localhost", 27017);
+            BaseDatos = mongo.getDB("test");
+            coleccion = BaseDatos.getCollection("persona");
             System.out.println("Conexión exitosa...");
         }
-        catch (UnknownHostException e)
+        catch (MongoException e)
         {
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null,e);
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println("Error al conectar" + e);
         }
     }
     
@@ -62,15 +61,6 @@ public class Connection
         
     }
     
-    //Eliminar
-    public boolean Eliminar(String accion) 
-    {
-        document.put("acción", accion);
-        coleccion.insert(document);
-        return true;
-    }
-    
-    
     //Actualizar
     public boolean Actualizar(String accionOld, String accionNew)
     {
@@ -79,6 +69,14 @@ public class Connection
         documentoNuevo.put("acción", accionNew);
         coleccion.findAndModify(document, documentoNuevo);
         
+        return true;
+    }
+
+    //Eliminar
+    public boolean Eliminar(String accion) 
+    {
+        document.put("acción", accion);
+        coleccion.insert(document);
         return true;
     }
 }
