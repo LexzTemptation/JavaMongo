@@ -1,0 +1,6 @@
+{
+    "java.format.settings.url": "/home/alejandrocornejo/Documentos/Practicas/Java/JavaPracticas/eclipse-formatter.xml",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ]
+}

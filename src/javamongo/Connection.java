@@ -5,6 +5,7 @@
 /  Programa que conecta MongoDB con Java
 /  Fecha: 1 de marzo del 2023
 */
+
 package javamongo;
 
 import com.mongodb.DBObject;
@@ -16,34 +17,32 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mongodb.BasicDBObject;
-import com.sun.jdi.connect.spi.Connection;
 
-public class Conection
+public class Connection
 {
     DB BaseDatos;
     DBCollection coleccion;
     BasicDBObject document = new BasicDBObject();
     
-    public Conection()
+    public Connection()
     {
         try
         {
             Mongo mongo = new Mongo("localhost", 27017);
-            BaseDatos = mongo.getDB("Actividad4");
-            coleccion = BaseDatos.getCollection("Actividad4");
-            
+            BaseDatos = mongo.getDB("spring_test");
+            coleccion = BaseDatos.getCollection("persona");
             System.out.println("Conexión exitosa...");
         }
-        catch(UnknownHostException ex)
+        catch (UnknownHostException exception)
         {
-            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE,null,ex);
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null.exception);
         }
     }
     
     /* Crudelio */
     
     //Insertar
-    public boolean insertar(String accion)
+    public boolean Insertar(String accion)
     {
         document.put("acción", accion);
         coleccion.insert(document);
@@ -51,7 +50,7 @@ public class Conection
     }
     
     //Leer
-    public void mostrar()
+    public void Mostrar()
     {
         DBCursor cursor = coleccion.find();
         while(cursor.hasNext())
@@ -62,13 +61,21 @@ public class Conection
     }
     
     //Eliminar
-    
+    public boolean Eliminar(String accion) 
+    {
+        document.put("acción", accion);
+        coleccion.insert(document);
+        return true;
+    }
     
     
     //Actualizar
     public boolean Actualizar(String accionOld, String accionNew)
     {
-        
+        document.put("acción", accionOld);
+        BasicDBObject documentoNuevo = new BasicDBObject();
+        documentoNuevo.put("acción", accionNew);
+        coleccion.findAndModify(document, documentoNuevo);
         
         return true;
     }
