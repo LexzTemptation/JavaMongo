@@ -30,7 +30,7 @@ public class Connection
         {
             MongoClient mongo = new MongoClient("localhost", 27017);
             BaseDatos = mongo.getDB("test");
-            coleccion = BaseDatos.getCollection("persona");
+            coleccion = BaseDatos.getCollection("libros");
             System.out.println("Conexión exitosa...");
         }
         catch (MongoException e)
@@ -76,7 +76,7 @@ public class Connection
     public boolean Eliminar(String accion) 
     {
         document.put("acción", accion);
-        coleccion.insert(document);
+        coleccion.remove(document);
         return true;
     }
 }
