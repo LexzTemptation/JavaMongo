@@ -24,14 +24,12 @@ public class JavaMongo
         conexion.Mostrar();
         
         System.out.println("Actualizamos salto al correr: ");
-        conexion.Actualizar("Salto", "Correr");
+        conexion.Actualizar("Salto: ", "Correr: ");
         conexion.Mostrar();
         
         System.out.println("Eliminar al correr: ");
         conexion.Eliminar("Correr: ");
         conexion.Mostrar();
-        
-        
         
     }
     
